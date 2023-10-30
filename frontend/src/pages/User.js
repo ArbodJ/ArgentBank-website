@@ -1,10 +1,14 @@
 import React from 'react';
+import Navigation from '../components/nav/Navigation';
+import Footer from '../components/footer/Footer';
+import MainUser from '../components/user-main/MainUser';
 
 const User = () => {
   return (
     <div>
-      <h1>Que voulez vous faire ?</h1>
-      <p>Un don ne serais pas de trop</p>
+      <Navigation />
+      <MainUser />
+      <Footer />
     </div>
   );
 };

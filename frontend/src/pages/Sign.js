@@ -1,10 +1,15 @@
 import React from 'react';
+import Navigation from '../components/nav/Navigation';
+import Footer from '../components/footer/Footer';
+import MainSign from '../components/sign-main/MainSign';
+import '../index.css';
 
 const Sign = () => {
   return (
     <div>
-      <h1>Entrez dans votre compte</h1>
-      <p>Voyez si il vous reste encore des sousous ou pas !</p>
+      <Navigation />
+      <MainSign />
+      <Footer />
     </div>
   );
 };

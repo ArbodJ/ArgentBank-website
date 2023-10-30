@@ -1,12 +1,15 @@
 import React from 'react';
-import Navigation from '../components/Navigation';
+import Navigation from '../components/nav/Navigation';
+import Footer from '../components/footer/Footer';
+import MainHome from '../components/home_main/MainHome';
+import '../index.css';
 
 const Home = () => {
   return (
     <div>
       <Navigation />
-      <h1>Bonjour et bienvenue !</h1>
-      <p>votre est en construction, veuillez patienter s.v.p. !</p>
+      <MainHome />
+      <Footer />
     </div>
   );
 };

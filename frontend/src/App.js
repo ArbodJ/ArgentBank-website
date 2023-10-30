@@ -5,7 +5,6 @@ import Sign from './pages/Sign';
 import User from './pages/User';
 import ErrorPage from './pages/ErrorPage';
 
-
 const App = () => {
   return (
     <BrowserRouter>
