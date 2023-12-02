@@ -22,7 +22,24 @@
   font-weight: bold;
   padding: 10px;
 }
+.input-welcomeback {
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  /* margin-bottom: 1rem; */
+  margin: 1rem 0;
+  justify-content: center;
+  align-items: center;
+}
+.input-welcomeback label {
+  font-weight: bold;
+  margin-right: 1rem;
+}
 
+.input-welcomeback input {
+  padding: 5px;
+  font-size: 1.2rem;
+}
 .sr-only {
   border: 0 !important;
   clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */

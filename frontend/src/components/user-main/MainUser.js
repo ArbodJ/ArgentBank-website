@@ -1,46 +1,114 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-
+import axios from 'axios';
+import './main-user.css';
+import React, { useEffect, useState } from 'react';
+import {  useDispatch, useSelector } from 'react-redux';
+import { editUser } from '../../reducers/users.reducer';
+import { useNavigate } from 'react-router-dom';
+import Transaction from '../transaction/Transaction';
 const MainUser = () => {
-  const setUserName = useSelector((state) => state.user.profile.userName);
+  
+  const userName = useSelector((state) => state.user.profile.userName);
+  const [isOpen, setIsOpen] = useState(false);
+  const [editName, setEditName] = useState(userName);
+  const dispatch = useDispatch();
+
+  const token = useSelector((state) => state.user.token);
+
+  function toggleOpen() {
+    setIsOpen(!isOpen);
+  }
+
+  function toggleClose() {
+    setIsOpen(false);
+  }
+
+  const handleCancel = () => {
+    toggleClose();
+    
+  };
+
+  const handleUserNameChange = (e) => {
+    setEditName(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios.put(
+      "http://localhost:3001/api/v1/user/profile",
+      {
+        userName: editName,
+      },
+      {
+        "Content-Type": "application/json",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    ).then((res) => {
+      const resData = res.data;
+      console.log("Username update", resData);
+      dispatch(editUser(editName));
+    }).catch((error) => {
+      console.error("Error updating username:", error);
+    })
+  };
+  const navigate = useNavigate()
+  useEffect(() => {
+    if(!localStorage.token) {
+      navigate("/sign")
+    }
+  }, [])
+
+  const transactions = [
+    {
+      title: "Argent Bank Checking (x8349)",
+      amount: 2082.79,
+    },
+    {
+      title: "Argent Bank Savings (x6712)",
+      amount: 928.42,
+    },
+    {
+      title: "Argent Bank Credit Card (x8349)",
+      amount: 184.30,
+    }
+  ]
+
   return (
     <div className='main-div'>
       <main className="main bg-dark">
         <div className="header">
-          <h1>Welcome back <br/> {setUserName}</h1>
-          <button className="edit-button">Edit Name</button>
+          <h1>Welcome back <br/> 
+          {userName}
+          </h1>
+          <button 
+            className="edit-button"
+            onClick={toggleOpen}
+          >
+            Edit Name
+          </button>
+          {isOpen && (
+        <div className="display-flex">
+          <div className="input-welcomeback">
+            <label>User Name: </label>
+            <input value={editName ? editName : ""} onChange={(e) => handleUserNameChange(e)} />
+          </div>
+          <button
+            className="edit-button edit-button-margin-right"
+            onClick={(e) => handleSubmit(e)}
+          >
+            Save
+          </button>
+          <button className="edit-button" onClick={handleCancel}>
+            Cancel
+          </button>
+        </div>
+      )}
         </div>
         <h2 className="sr-only">Accounts</h2>
-        <section className="account">
-          <div className="account-wrapper">
-            <h3 className="account-title">Argent Bank Checking (x8349) </h3>
-            <p className="account-amount">$2,082.79</p>
-            <p className="account-amount-description">Available Balance</p>
-          </div>
-          <div className="account-wrapper cta">
-            <button className="transaction-button">View transactions</button>
-          </div>
-        </section>
-        <section className="account">
-          <div className="account-wrapper">
-            <h3 className="account-title">Argent Bank Savings (x6712) </h3>
-            <p className="account-amount">$10,928.42</p>
-            <p className="account-amount-description">Available Balance</p>
-          </div>
-          <div className="account-wrapper cta">
-            <button className="transaction-button">View transactions</button>
-          </div>
-        </section>
-        <section className="account">
-          <div className="account-wrapper">
-            <h3 className="account-title">Argent Bank Credit Card (x8349) </h3>
-            <p className="account-amount">$184.30</p>
-            <p className="account-amount-description">Current Balance</p>
-          </div>
-          <div className="account-wrapper cta">
-            <button className="transaction-button">View transactions</button>
-          </div>
-        </section>
+        {transactions.map((transaction, index) => 
+          <Transaction key={index} transaction={transaction} />
+        )}
       </main>
     </div>
   );

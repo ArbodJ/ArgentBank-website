@@ -18,8 +18,11 @@ export const userSlice = createSlice({
     },
     setProfile: (state, {payload})=>{
       state.profile=payload
+    },
+    editUser: (state, {payload}) => {
+      state.profile.userName=payload
     }
   }
 })
-export const {getToken, setProfile } = userSlice.actions
+export const {getToken, setProfile, editUser } = userSlice.actions
 export default userSlice.reducer

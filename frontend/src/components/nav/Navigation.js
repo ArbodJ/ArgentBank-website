@@ -1,15 +1,20 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import  './nav.css';
-import logo from "../../assets/img/argentBankLogo copy.png"
+import logo from "../../assets/img/argentBankLogo_11zon.webp";
 import { useDispatch, useSelector } from 'react-redux';
 
-const Navigation = () => {
-  const token = useSelector((state) => state.user.token);
-  const firstName = useSelector((state) => state.user.profile.firstName);
-  const lastName = useSelector((state) => state.user.profile.lastName);
-  
 
+const Navigation = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const token = useSelector((state) => state.user.token);
+  const userName = useSelector((state) => state.user.profile.userName);
+  const logout = () => {
+    localStorage.removeItem("token");
+    window.location.reload();
+  }
+  
   return (
     <nav className='main-nav'>
       
@@ -20,27 +25,24 @@ const Navigation = () => {
           alt="Argent Bank Logo" 
         />
       </NavLink>
-
-      { !token &&(
+      
+      { !token ? (
         <NavLink to='/sign' className='main-nav-item active'>
         <i className="fa fa-user-circle"></i>
         <span> Sign in</span>
         </NavLink>
-      )}
-      {token &&(
+        ) : (
         <NavLink 
           to='/' 
           className='main-nav-item active' 
         >
         <i className="fa fa-user-circle"></i>
-        <span> {firstName} {lastName} </span>
+        <span> {userName} </span>
         <i className='fa fa-sign-out'></i>
-        <span> Sign out</span>
+        <span onClick={logout}> Sign out</span>
         </NavLink>
       )}
-      
-      
-
+    
     </nav>
   );
 };

@@ -1,9 +1,9 @@
 import React from 'react';
 import './main-home.css';
-import iconChat from '../../assets/img/icon-chat copy.png';
-import iconMoney from '../../assets/img/icon-money copy.png';
-import iconSecurity from '../../assets/img/icon-security copy.png';
-
+import iconChat from '../../assets/img/icon-chat_11zon.webp';
+import iconMoney from '../../assets/img/icon-money_11zon.webp';
+import iconSecurity from '../../assets/img/icon-security_11zon.webp';
+import Feature from '../feature/Feature';
 const MainHome = () => {
   return (
     <div>
@@ -19,34 +19,21 @@ const MainHome = () => {
         </div>
         <section className="features">
           <h2 className="sr-only">Features</h2>
-          <div className="feature-item">
-            <img 
-              src={iconChat}
-              alt="Chat Icon" 
-              className="feature-icon" />
-            <h3 className="feature-item-title">You are our #1 priority</h3>
-            <p>Need to talk to a representative? You can get in touch through our
-              24/7 chat or through a phone call in less than 5 minutes.</p>
-          </div>
-          <div className="feature-item">
-            <img 
-              src={iconMoney}
-              alt="Chat Icon" 
-              className="feature-icon" 
-            />
-            <h3 className="feature-item-title">More savings means higher rates</h3>
-            <p>The more you save with us, the higher your interest rate will be!</p>
-          </div>
-          <div className="feature-item">
-          <img 
-              src={iconSecurity} 
-              alt="Chat Icon" 
-              className="feature-icon" 
-            />
-            <h3 className="feature-item-title">Security you can trust</h3>
-            <p>We use top of the line encryption to make sure your data and money
-              is always safe.</p>
-          </div>
+          <Feature 
+            title="You are our #1 priority"
+            text="Need to talk to a representative? You can get in touch through our 24/7 chat or through a phone call in less than 5 minutes."
+            icon={iconChat}
+          />
+          <Feature
+            title="More savings means higher rates"
+            text="The more you save with us, the higher your interest rate will be!"
+            icon={iconMoney}
+          />
+          <Feature
+            title="Security you can trust"
+            text="We use top of the line encryption to make sure your data and money is always safe."
+            icon={iconSecurity}
+          />
         </section>
       </main>
     </div>
